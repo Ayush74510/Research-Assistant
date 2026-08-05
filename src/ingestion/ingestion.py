@@ -37,8 +37,6 @@ def ingest(path: str) -> list:
 
 
 if __name__ == "__main__":
-    docs = load_pdf('src/data/paper.pdf')
+    chunk = ingest('src/data/paper.pdf')
     
-    chunks = chunk_documents(docs)
-    
-    print(chunks)
+    print(chunk)

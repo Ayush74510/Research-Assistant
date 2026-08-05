@@ -1,4 +1,5 @@
-import sys
+import os
+import glob
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
@@ -8,6 +9,11 @@ def load_pdf(path: str) -> list:
     loader = PyPDFLoader(path)
     documents = loader.load()
     return documents
+
+def get_pdf_paths(path: str) -> list[str]:
+    if os.path.isdir(path):
+        return sorted(glob.glob(os.path.join(path, "*.pdf")))
+    return [path]
 
 
 def chunk_documents(
@@ -36,7 +42,19 @@ def ingest(path: str) -> list:
     return chunks
 
 
-if __name__ == "__main__":
-    chunk = ingest('src/data/paper.pdf')
+def ingest_folder(folder_path: str) -> list:
+    pdf_paths = get_pdf_paths(folder_path)
+    if not pdf_paths:
+        raise ValueError(f"No PDFs found in {folder_path}")
+ 
+    all_chunks = []
+    for pdf_path in pdf_paths:
+        all_chunks.extend(ingest(pdf_path))
+ 
+    return all_chunks
+
+
+# if __name__ == "__main__":
+#     chunk = ingest_folder('src/data')
     
-    print(chunk)
+#     print(chunk)

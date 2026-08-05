@@ -1,7 +1,12 @@
 pymupdf
 sentence-transformers
 faiss-cpu
-anthropic
+groq
 python-dotenv
 sys
+os
 fitz
+groq
+langchain
+streamlit
+torchvision

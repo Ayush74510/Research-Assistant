@@ -3,10 +3,9 @@ sentence-transformers
 faiss-cpu
 groq
 python-dotenv
-sys
-os
 fitz
 groq
 langchain
 streamlit
 torchvision
+flask
